@@ -1,3 +1,17 @@
+# Vercel Build Error Fix - Complete Guide
+
+## 🚨 Current Error: "vite: command not found"
+
+**Error Message:**
+```
+sh: line 1: vite: command not found
+Error: Command "vite build" exited with 127
+```
+
+This error occurs when Vercel tries to run `vite build` directly instead of using `npm run build`.
+
+---
+
 # Vercel DEPLOYMENT_NOT_FOUND Error - Complete Guide
 
 ## 1. 🔧 The Fix
