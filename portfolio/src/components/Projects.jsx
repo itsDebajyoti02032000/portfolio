@@ -34,7 +34,7 @@ const Projects = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="text-gradient" style={{ color: '#2563eb' }}>My Projects</span>
+            <span className="text-gradient">My Projects</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             A collection of projects I've built with passion and dedication

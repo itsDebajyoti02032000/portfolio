@@ -36,7 +36,7 @@ const About = () => {
             variants={itemVariants}
             className="text-4xl sm:text-5xl font-bold text-center mb-4"
           >
-            <span className="text-gradient" style={{ color: '#2563eb' }}>About Me</span>
+            <span className="text-gradient">About Me</span>
           </motion.h2>
 
           {/* Education Section */}

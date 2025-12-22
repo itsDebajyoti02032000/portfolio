@@ -41,7 +41,7 @@ const Hero = () => {
               transition={{ delay: 0.3 }}
               className="glass-card"
             >
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: '#2563eb' }}>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gradient">
                 About Me
               </h2>
               <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -60,7 +60,7 @@ const Hero = () => {
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow text-center flex items-center justify-center"
+                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow text-center flex items-center justify-center"
               >
                 Get In Touch
               </motion.a>
@@ -80,7 +80,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col items-center lg:items-end space-y-6 order-1 lg:order-2"
+            className="flex flex-col items-center lg:items-end space-y-6 order-1 lg:order-2 w-full lg:w-auto"
           >
             {/* Profile Image */}
             <motion.div
@@ -90,7 +90,7 @@ const Hero = () => {
               className="flex justify-center lg:justify-end"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
                 <img
                   src={personalInfo.profileImage}
                   alt={personalInfo.name}
@@ -108,8 +108,8 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center lg:text-right"
-              style={{ color: '#2563eb' }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center lg:text-right text-gradient leading-tight break-words overflow-visible"
+              style={{ lineHeight: '1.2', wordBreak: 'break-word' }}
             >
               {personalInfo.name}
             </motion.h1>
@@ -134,7 +134,7 @@ const Hero = () => {
             >
               <span className="text-2xl">💼</span>
               <p className="text-lg font-semibold" style={{ color: '#6b7280' }}>
-                Total Experience: <span style={{ color: '#2563eb' }}>{personalInfo.totalExperience}</span>
+                Total Experience: <span className="text-gradient">{personalInfo.totalExperience}</span>
               </p>
             </motion.div>
           </motion.div>

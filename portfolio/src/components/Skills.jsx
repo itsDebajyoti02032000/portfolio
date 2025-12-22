@@ -4,7 +4,7 @@ import { skills } from '../config/portfolio'
 const Skills = () => {
   const skillCategories = [
     { title: 'Programming Languages', items: skills.programming, color: 'from-blue-500 to-cyan-500' },
-    { title: 'Backend Technologies', items: skills.backend, color: 'from-purple-500 to-pink-500' },
+    { title: 'Backend Technologies', items: skills.backend, color: 'from-cyan-500 to-blue-500' },
     { title: 'Data & AI', items: skills.dataAI, color: 'from-green-500 to-emerald-500' },
     { title: 'Tools & Platforms', items: skills.tools, color: 'from-orange-500 to-red-500' },
   ]
@@ -40,7 +40,7 @@ const Skills = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="text-gradient" style={{ color: '#2563eb' }}>Skills & Technologies</span>
+            <span className="text-gradient">Skills & Technologies</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             Technologies I work with to bring ideas to life

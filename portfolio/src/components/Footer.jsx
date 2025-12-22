@@ -14,7 +14,7 @@ const Footer = () => {
           className="text-center"
         >
           <p className="text-gray-600 dark:text-gray-400">
-            © {currentYear} <span className="font-semibold text-gradient" style={{ color: '#2563eb' }}>{personalInfo.name}</span>. Built with React, TailwindCSS & Framer Motion.
+            © {currentYear} <span className="font-semibold text-gradient">{personalInfo.name}</span>. Built with React, TailwindCSS & Framer Motion.
           </p>
         </motion.div>
       </div>

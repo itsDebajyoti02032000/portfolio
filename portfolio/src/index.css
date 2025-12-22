@@ -22,15 +22,18 @@
   }
   
   .gradient-bg {
-    @apply bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600;
+    @apply bg-gradient-to-br from-cyan-500 via-blue-500 to-teal-500 dark:from-cyan-600 dark:via-blue-600 dark:to-teal-600;
   }
   
   .text-gradient {
-    background: linear-gradient(to right, #2563eb, #9333ea);
+    background: linear-gradient(to right, #06b6d4, #2563eb);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: #2563eb; /* Fallback for browsers that don't support background-clip */
+    display: inline-block;
+    overflow: visible;
+    word-wrap: break-word;
   }
   
   @supports not (background-clip: text) {
