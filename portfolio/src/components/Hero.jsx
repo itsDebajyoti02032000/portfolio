@@ -20,89 +20,123 @@ const Hero = () => {
         backgroundColor: '#ffffff'
       }}
     >
-      <div className="container mx-auto text-center" style={{ width: '100%', maxWidth: '1200px' }}>
+      <div className="container mx-auto" style={{ width: '100%', maxWidth: '1200px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         >
-          {/* Profile Image */}
+          {/* Left Section: About Me Paragraph + CTA Buttons */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="flex justify-center mb-8"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-col space-y-6 order-2 lg:order-1"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-              <img
-                src={personalInfo.profileImage}
-                alt={personalInfo.name}
-                className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white dark:border-gray-800 shadow-2xl object-cover"
-                onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/200?text=DD'
-                }}
-              />
-            </div>
+            {/* About Me Paragraph */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="glass-card"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: '#2563eb' }}>
+                About Me
+              </h2>
+              <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                {personalInfo.bio}
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow text-center flex items-center justify-center"
+              >
+                Get In Touch
+              </motion.a>
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 glass-card font-semibold hover:bg-white/20 dark:hover:bg-gray-700/20 transition-colors text-center flex items-center justify-center"
+              >
+                View My Work
+              </motion.a>
+            </motion.div>
           </motion.div>
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold"
-            style={{ color: '#2563eb' }}
-          >
-            {personalInfo.name}
-          </motion.h1>
-
-          {/* Profession */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl sm:text-2xl lg:text-3xl font-medium"
-            style={{ color: '#4b5563' }}
-          >
-            {personalInfo.profession}
-          </motion.p>
-
-          {/* Location */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-lg"
-            style={{ color: '#6b7280' }}
-          >
-            📍 {personalInfo.location}
-          </motion.p>
-
-          {/* CTA Buttons */}
+          {/* Right Section: Profile Pic, Name, Role, Total Experience */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col items-center lg:items-end space-y-6 order-1 lg:order-2"
           >
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            {/* Profile Image */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: 'spring', stiffness: 200 }}
+              className="flex justify-center lg:justify-end"
             >
-              Get In Touch
-            </motion.a>
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 glass-card font-semibold hover:bg-white/20 dark:hover:bg-gray-700/20 transition-colors"
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+                <img
+                  src={personalInfo.profileImage}
+                  alt={personalInfo.name}
+                  className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-64 lg:h-64 rounded-full border-4 border-white dark:border-gray-800 shadow-2xl object-cover object-center"
+                  style={{ objectPosition: 'center' }}
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/200?text=DD'
+                  }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Name */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center lg:text-right"
+              style={{ color: '#2563eb' }}
             >
-              View My Work
-            </motion.a>
+              {personalInfo.name}
+            </motion.h1>
+
+            {/* Profession */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="text-xl sm:text-2xl lg:text-3xl font-medium text-center lg:text-right"
+              style={{ color: '#4b5563' }}
+            >
+              {personalInfo.profession}
+            </motion.p>
+
+            {/* Total Experience */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="flex items-center gap-2 text-center lg:text-right"
+            >
+              <span className="text-2xl">💼</span>
+              <p className="text-lg font-semibold" style={{ color: '#6b7280' }}>
+                Total Experience: <span style={{ color: '#2563eb' }}>{personalInfo.totalExperience}</span>
+              </p>
+            </motion.div>
           </motion.div>
         </motion.div>
 

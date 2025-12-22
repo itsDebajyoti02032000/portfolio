@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiMail, FiLinkedin, FiGithub, FiSend } from 'react-icons/fi'
+import { FiMail, FiLinkedin, FiGithub, FiSend, FiPhone } from 'react-icons/fi'
 import { personalInfo, emailConfig } from '../config/portfolio'
 import emailjs from '@emailjs/browser'
 
@@ -55,7 +55,8 @@ const Contact = () => {
   }
 
   const socialLinks = [
-    { icon: FiMail, href: `mailto:${personalInfo.email}`, label: 'Email' },
+    { icon: FiMail, href: `mailto:${personalInfo.email}`, label: personalInfo.email },
+    { icon: FiPhone, href: `tel:${personalInfo.phone}`, label: personalInfo.phone },
     { icon: FiLinkedin, href: personalInfo.linkedin, label: 'LinkedIn' },
     { icon: FiGithub, href: personalInfo.github, label: 'GitHub' },
   ]

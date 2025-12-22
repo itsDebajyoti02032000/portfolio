@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { personalInfo } from '../config/portfolio'
+import { personalInfo, education, experience } from '../config/portfolio'
 
 const About = () => {
   const containerVariants = {
@@ -39,39 +39,84 @@ const About = () => {
             <span className="text-gradient" style={{ color: '#2563eb' }}>About Me</span>
           </motion.h2>
 
+          {/* Education Section */}
           <motion.div
             variants={itemVariants}
-            className="glass-card mt-8"
+            className="mt-12"
           >
-            <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-              {personalInfo.bio}
-            </p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">
+              Education
+            </h3>
+            <div className="space-y-6">
+              {education.map((edu) => (
+                <motion.div
+                  key={edu.id}
+                  variants={itemVariants}
+                  className="glass-card"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div className="flex-1">
+                      <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                        {edu.degree}
+                      </h4>
+                      <p className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        {edu.institution}
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                        {edu.location}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
+                        {edu.period}
+                      </p>
+                      {edu.cgpa && (
+                        <p className="text-gray-700 dark:text-gray-300 font-medium">
+                          {edu.cgpa}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
+          {/* Experience Section */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
+            className="mt-12"
           >
-            <div className="glass-card text-center">
-              <div className="text-3xl mb-2">🎯</div>
-              <h3 className="font-semibold text-lg mb-2">Focus</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Generative AI & Backend Development
-              </p>
-            </div>
-            <div className="glass-card text-center">
-              <div className="text-3xl mb-2">🚀</div>
-              <h3 className="font-semibold text-lg mb-2">Passion</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Building Intelligent Systems
-              </p>
-            </div>
-            <div className="glass-card text-center">
-              <div className="text-3xl mb-2">💡</div>
-              <h3 className="font-semibold text-lg mb-2">Approach</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Innovation & Best Practices
-              </p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">
+              Experience
+            </h3>
+            <div className="space-y-6">
+              {experience.map((exp) => (
+                <motion.div
+                  key={exp.id}
+                  variants={itemVariants}
+                  className="glass-card"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div className="flex-1">
+                      <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                        {exp.position}
+                      </h4>
+                      <p className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        {exp.company}
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                        {exp.location}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                        {exp.period}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </motion.div>
