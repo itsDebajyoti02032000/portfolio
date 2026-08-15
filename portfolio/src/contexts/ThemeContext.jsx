@@ -11,11 +11,16 @@ export const useTheme = () => {
 }
 
 export const ThemeProvider = ({ children }) => {
-  // Initialize theme - default to light for better visibility
   const getInitialTheme = () => {
-    if (typeof window === 'undefined') return 'light'
-    
+    if (typeof window === 'undefined') return 'dark'
+
     try {
+      const themeVersion = localStorage.getItem('theme-version')
+      if (themeVersion !== '2') {
+        localStorage.setItem('theme', 'dark')
+        localStorage.setItem('theme-version', '2')
+        return 'dark'
+      }
       const savedTheme = localStorage.getItem('theme')
       if (savedTheme === 'dark' || savedTheme === 'light') {
         return savedTheme
@@ -23,19 +28,17 @@ export const ThemeProvider = ({ children }) => {
     } catch (e) {
       console.warn('Could not access localStorage:', e)
     }
-    
-    // Default to light theme for better initial visibility
-    return 'light'
+
+    return 'dark'
   }
 
   const [theme, setTheme] = useState(() => {
     const initialTheme = getInitialTheme()
-    // Apply theme immediately
     if (typeof document !== 'undefined') {
       const html = document.documentElement
       if (initialTheme === 'dark') {
         html.classList.add('dark')
-        html.style.backgroundColor = '#111827'
+        html.style.backgroundColor = '#0a0a1f'
       } else {
         html.classList.remove('dark')
         html.style.backgroundColor = '#ffffff'
@@ -45,17 +48,16 @@ export const ThemeProvider = ({ children }) => {
   })
 
   useEffect(() => {
-    // Apply theme to document whenever it changes
     if (typeof document !== 'undefined') {
       const html = document.documentElement
       if (theme === 'dark') {
         html.classList.add('dark')
-        html.style.backgroundColor = '#111827'
+        html.style.backgroundColor = '#0a0a1f'
       } else {
         html.classList.remove('dark')
         html.style.backgroundColor = '#ffffff'
       }
-      
+
       try {
         localStorage.setItem('theme', theme)
       } catch (e) {

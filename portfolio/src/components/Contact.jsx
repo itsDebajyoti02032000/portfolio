@@ -26,8 +26,7 @@ const Contact = () => {
     setSubmitStatus(null)
 
     try {
-      // EmailJS integration (if configured)
-      if (emailConfig.serviceId && emailConfig.templateId && emailConfig.publicKey && 
+      if (emailConfig.serviceId && emailConfig.templateId && emailConfig.publicKey &&
           emailConfig.serviceId !== 'your_service_id') {
         await emailjs.send(
           emailConfig.serviceId,
@@ -35,7 +34,7 @@ const Contact = () => {
           {
             from_name: formData.name,
             from_email: formData.email,
-            message: formData.message,
+            message: `From: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
             to_email: personalInfo.email,
           },
           emailConfig.publicKey
@@ -43,24 +42,36 @@ const Contact = () => {
         setSubmitStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' })
         setFormData({ name: '', email: '', message: '' })
       } else {
-        // Fallback: Open email client with pre-filled data
-        const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`)
-        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
+        const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`)
+        const body = encodeURIComponent(`Hi Debajyoti,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
         const mailtoLink = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`
-        
-        window.location.href = mailtoLink
-        setSubmitStatus({ type: 'success', message: 'Opening your email client... Please send the message from there.' })
+
+        const link = document.createElement('a')
+        link.href = mailtoLink
+        link.target = '_blank'
+        link.rel = 'noopener noreferrer'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+        setSubmitStatus({ type: 'success', message: 'Your email client should open now. Please send the message from there!' })
         setFormData({ name: '', email: '', message: '' })
       }
     } catch (error) {
       console.error('Error sending email:', error)
-      // Fallback to mailto if EmailJS fails
-      const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`)
-      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
+      const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`)
+      const body = encodeURIComponent(`Hi Debajyoti,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
       const mailtoLink = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`
-      
-      window.location.href = mailtoLink
-      setSubmitStatus({ type: 'success', message: 'Opening your email client... Please send the message from there.' })
+
+      const link = document.createElement('a')
+      link.href = mailtoLink
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+
+      setSubmitStatus({ type: 'success', message: 'Your email client should open now. Please send the message from there!' })
       setFormData({ name: '', email: '', message: '' })
     } finally {
       setIsSubmitting(false)
@@ -76,7 +87,7 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-gray-900/50">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-[#0f0f2e]/50">
       <div className="container mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -115,7 +126,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-[#0f0f2e]/80 border border-gray-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-colors text-gray-900 dark:text-gray-100"
                   placeholder="Your name"
                 />
               </div>
@@ -130,7 +141,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-[#0f0f2e]/80 border border-gray-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-colors text-gray-900 dark:text-gray-100"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -165,7 +176,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white rounded-lg font-semibold shadow-lg shadow-purple-500/25 hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 <FiSend className="w-5 h-5" />
@@ -197,7 +208,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     className="flex items-center space-x-4 p-4 glass hover:bg-white/20 dark:hover:bg-gray-700/20 rounded-lg transition-colors group"
                   >
-                    <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg group-hover:scale-110 transition-transform">
+                    <div className="p-3 bg-gradient-to-r from-purple-600 to-violet-600 rounded-lg group-hover:scale-110 transition-transform">
                       <social.icon className="w-6 h-6 text-white" />
                     </div>
                     <span className="font-medium text-gray-700 dark:text-gray-300">{social.label}</span>
