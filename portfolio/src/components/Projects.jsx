@@ -161,7 +161,7 @@ const Projects = () => {
                 </p>
 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.techStack.map((tech, index) => (
                     <span
                       key={index}
@@ -171,6 +171,36 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
+
+                {/* Action Buttons */}
+                {(project.link !== '#' || project.github !== '#') && (
+                  <div className="flex items-center gap-3 pt-2 border-t border-gray-200 dark:border-white/10">
+                    {project.link !== '#' && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-violet-600 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+                      >
+                        <FiExternalLink className="w-3.5 h-3.5" />
+                        Live Demo
+                      </a>
+                    )}
+                    {project.github !== '#' && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-white/10 rounded-full hover:bg-gray-200 dark:hover:bg-white/20 transition-all duration-300"
+                      >
+                        <FiGithub className="w-3.5 h-3.5" />
+                        Source Code
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>
