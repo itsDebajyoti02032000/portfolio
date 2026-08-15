@@ -1,8 +1,14 @@
-import { motion } from 'framer-motion'
-import { FiGithub, FiExternalLink } from 'react-icons/fi'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiGithub, FiExternalLink, FiX, FiBriefcase, FiUser } from 'react-icons/fi'
 import { projects } from '../config/portfolio'
 
 const Projects = () => {
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [activeTab, setActiveTab] = useState('org')
+
+  const filteredProjects = projects.filter((p) => p.category === activeTab)
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,7 +31,7 @@ const Projects = () => {
   }
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-gray-900/50">
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-[#0f0f2e]/50">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,82 +47,174 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={cardVariants}
-              whileHover={{ scale: 1.05, y: -10 }}
-              className="glass-card group cursor-pointer overflow-hidden"
+        {/* Tabs */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex rounded-full p-1 bg-gray-100 dark:bg-[#1a1a3e] border border-gray-200 dark:border-white/10">
+            <button
+              onClick={() => setActiveTab('org')}
+              className={`inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                activeTab === 'org'
+                  ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-lg shadow-purple-500/25'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
             >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden rounded-lg mb-4">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4 space-x-2">
-                  {project.github !== '#' && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
-                    >
-                      <FiGithub className="w-5 h-5 text-white" />
-                    </a>
-                  )}
-                  {project.link !== '#' && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
-                    >
-                      <FiExternalLink className="w-5 h-5 text-white" />
-                    </a>
-                  )}
-                </div>
-              </div>
+              <FiBriefcase className="w-4 h-4" />
+              <span>Organization</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('personal')}
+              className={`inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                activeTab === 'personal'
+                  ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-lg shadow-purple-500/25'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+            >
+              <FiUser className="w-4 h-4" />
+              <span>Personal</span>
+            </button>
+          </div>
+        </div>
 
-              {/* Project Info */}
-              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
-                {project.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full"
-                  >
-                    {tech}
-                  </span>
-                ))}
+        {/* Personal Projects Notice */}
+        <AnimatePresence mode="wait">
+          {activeTab === 'personal' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-center mb-8"
+            >
+              <div className="inline-flex items-center space-x-2 px-5 py-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-500/20">
+                <span className="text-amber-600 dark:text-amber-400 text-sm font-medium">
+                  This section is currently being curated. Additional personal projects and live deployments will be available shortly.
+                </span>
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Project Cards */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                variants={cardVariants}
+                whileHover={{ scale: 1.03, y: -8 }}
+                className="glass-card group cursor-pointer overflow-hidden"
+              >
+                {/* Project Image */}
+                <div
+                  className="relative h-48 overflow-hidden rounded-lg mb-4 cursor-zoom-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedImage({ src: project.image, title: project.title })
+                  }}
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    onError={(e) => {
+                      e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4 space-x-2 pointer-events-none">
+                    {project.github !== '#' && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors pointer-events-auto"
+                      >
+                        <FiGithub className="w-5 h-5 text-white" />
+                      </a>
+                    )}
+                    {project.link !== '#' && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors pointer-events-auto"
+                      >
+                        <FiExternalLink className="w-5 h-5 text-white" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Project Info */}
+                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl max-h-[90vh] w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-12 right-0 p-2 text-white hover:text-gray-300 transition-colors"
+              >
+                <FiX className="w-8 h-8" />
+              </button>
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.title}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
+              />
+              <p className="text-center text-white mt-4 text-lg font-medium">
+                {selectedImage.title}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
 
 export default Projects
-

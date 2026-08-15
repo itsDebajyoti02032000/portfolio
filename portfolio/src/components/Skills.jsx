@@ -4,9 +4,10 @@ import { skills } from '../config/portfolio'
 const Skills = () => {
   const skillCategories = [
     { title: 'Programming Languages', items: skills.programming, color: 'from-blue-500 to-cyan-500' },
-    { title: 'Backend Technologies', items: skills.backend, color: 'from-cyan-500 to-blue-500' },
-    { title: 'Data & AI', items: skills.dataAI, color: 'from-green-500 to-emerald-500' },
-    { title: 'Tools & Platforms', items: skills.tools, color: 'from-orange-500 to-red-500' },
+    { title: 'Frameworks & Libraries', items: skills.frameworks, color: 'from-cyan-500 to-blue-500' },
+    { title: 'AI & Data Science', items: skills.dataAI, color: 'from-green-500 to-emerald-500' },
+    { title: 'Cloud & DevOps', items: skills.cloud, color: 'from-purple-500 to-indigo-500' },
+    { title: 'Developer Tools', items: skills.tools, color: 'from-orange-500 to-red-500' },
   ]
 
   const containerVariants = {
