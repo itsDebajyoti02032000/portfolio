@@ -1,7 +1,60 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiGithub, FiExternalLink, FiX, FiBriefcase, FiUser } from 'react-icons/fi'
 import { projects } from '../config/portfolio'
+
+const ImageCarousel = ({ images, title, onImageClick }) => {
+  const [current, setCurrent] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const intervalRef = useRef(null)
+
+  useEffect(() => {
+    if (paused) return
+    intervalRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(intervalRef.current)
+  }, [paused, images.length])
+
+  return (
+    <div
+      className="relative w-full h-full"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {images.map((src, idx) => (
+        <img
+          key={idx}
+          src={src}
+          alt={`${title} - ${idx + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            idx === current ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => onImageClick(src)}
+          onError={(e) => {
+            e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(title)}`
+          }}
+        />
+      ))}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={(e) => {
+              e.stopPropagation()
+              setCurrent(idx)
+            }}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              idx === current
+                ? 'bg-white scale-125'
+                : 'bg-white/50 hover:bg-white/75'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const Projects = () => {
   const [selectedImage, setSelectedImage] = useState(null)
@@ -115,17 +168,26 @@ const Projects = () => {
                   className="relative h-48 overflow-hidden rounded-lg mb-4 cursor-zoom-in"
                   onClick={(e) => {
                     e.stopPropagation()
-                    setSelectedImage({ src: project.image, title: project.title })
+                    const src = project.images ? project.images[0] : project.image
+                    setSelectedImage({ src, title: project.title, images: project.images })
                   }}
                 >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    onError={(e) => {
-                      e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`
-                    }}
-                  />
+                  {project.images ? (
+                    <ImageCarousel
+                      images={project.images}
+                      title={project.title}
+                      onImageClick={(src) => setSelectedImage({ src, title: project.title, images: project.images })}
+                    />
+                  ) : (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      onError={(e) => {
+                        e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`
+                      }}
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4 space-x-2 pointer-events-none">
                     {project.github !== '#' && (
                       <a
@@ -236,6 +298,23 @@ const Projects = () => {
                 alt={selectedImage.title}
                 className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
               />
+              {selectedImage.images && (
+                <div className="flex justify-center gap-2 mt-4">
+                  {selectedImage.images.map((src, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImage({ ...selectedImage, src })}
+                      className={`w-16 h-12 rounded overflow-hidden border-2 transition-all ${
+                        src === selectedImage.src
+                          ? 'border-purple-500 scale-110'
+                          : 'border-white/30 hover:border-white/60'
+                      }`}
+                    >
+                      <img src={src} alt={`${idx + 1}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
               <p className="text-center text-white mt-4 text-lg font-medium">
                 {selectedImage.title}
               </p>
