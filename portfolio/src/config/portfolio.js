@@ -58,7 +58,11 @@ export const projects = [
     id: 5,
     title: "RecallAI – Memory-Augmented Web-Aware AI Assistant",
     description: "Built a production-grade Agentic AI assistant featuring persistent multi-layer memory (semantic, episodic, short-term), MCP-based tool orchestration, and real-time web search via SearXNG. Powered by Amazon Bedrock with a BYOK architecture — users connect their own credentials for zero developer inference cost. Deployed serverlessly on Cloudflare Pages & Workers with D1/KV persistence, all within free-tier constraints.",
-    image: "/assets/recallAI.png",
+    images: [
+      "/assets/recallai_landing_page.PNG",
+      "/assets/agent_activity_recallai.PNG",
+      "/assets/memory_recallai.PNG",
+    ],
     techStack: ["React", "TypeScript", "Cloudflare Workers", "Amazon Bedrock", "MCP", "Mem0", "SearXNG", "Agentic AI"],
     link: "https://recallai-5ru.pages.dev/",
     github: "https://github.com/itsDebajyoti02032000/recallAI",
