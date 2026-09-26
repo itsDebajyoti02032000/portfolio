@@ -82,7 +82,7 @@ export const projects = [
     id: 7,
     title: "DebCode – Autonomous Coding Harness Agent",
     description: "Built a terminal-based autonomous coding agent powered by Amazon Bedrock. Give it a task in plain English — it plans the approach, reads relevant code, makes changes, runs tests, and fixes failures on its own. Features 10 built-in tools, automatic project detection, self-correcting test loops, and built-in safety guardrails. Supports Python, Node.js, Rust, Go, and Java projects with 279 tests at 85% coverage.",
-    image: "/assets/debcode.svg",
+    image: "/assets/debcode.PNG",
     techStack: ["Python", "Amazon Bedrock", "Claude", "Agentic AI", "CLI", "Rich"],
     link: "#",
     github: "https://github.com/itsDebajyoti02032000/debcode",
